@@ -32,23 +32,42 @@ Most signature verification systems rely on a single classifier. This project in
 
 ---
 
-## 📊 Results
+## 📊 Comprehensive Results
 
+### 1. Classification Accuracy (Confusion Matrix)
+The Group Model demonstrates a strong ability to distinguish between Genuine (0) and Forged (1) signatures with a low false acceptance rate.
+
+![Confusion Matrix](results/custom_plot_6_confusion_matrix.png)
+
+### 2. Feature Optimization (PCA Variance)
+We used PCA to reduce dimensionality. The plot confirms that **95% of the biometric variance** is retained using only ~140 components, optimizing speed without losing accuracy.
+
+![PCA Variance](results/custom_plot_4_pca_variance.png)
+
+### 3. Class Separation (Scatter Plot)
+Visualizing the data in 2D space shows distinct clustering. Genuine signatures (Red) and Forgeries (Blue) form separable clusters, proving that our Hybrid Features successfully capture the writer's unique "biometric fingerprint."
+
+![PCA Scatter](results/custom_plot_5_pca_2d_scatter.png)
+
+### 4. Sensitivity Analysis (ROC Curve)
 * **Metric:** Area Under Curve (AUC)
 * **Score:** **0.82** (Individual Model)
-* **Impact:** The sequential validation logic significantly reduced the False Acceptance Rate (FAR) for skilled forgeries compared to baseline models.
+* **Conclusion:** The Individual Model significantly outperforms baseline generic verifiers.
 
 ![ROC Curve](results/individual_plot_7_roc_curve.png)
-*Fig 1. ROC Curve showing the performance of the User-Specific Model*
 
 ---
 
-## 📂 File Description
+## 📂 File Structure
 
 * **`app.py`**: The entry point for the Streamlit web interface. Handles image upload and visualization.
 * **`main.py`**: Contains the core backend logic for image preprocessing (Otsu thresholding) and feature extraction (HOG + LBP).
 * **`train_individual.py`**: The script used to train the specialized Tier 3 model.
-* **`models/`**: Directory containing the pre-trained `.joblib` model files and PCA transformers.
+* **`models/`**: Directory containing the pre-trained models.
+    * `custom_model.joblib` (Group Model)
+    * `individual_model.joblib` (Individual Model)
+    
+> **Note:** The Tier 1 (Generic) `pca.joblib` model file exceeds GitHub's storage limits (>100MB) and is not included in this repository. The Tier 2 (Group) and Tier 3 (Individual) models are included for demonstration.
 
 ---
 
