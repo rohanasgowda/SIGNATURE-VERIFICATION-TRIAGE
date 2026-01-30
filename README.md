@@ -30,14 +30,17 @@ Our system uses a hybrid feature extraction method to capture both the shape and
 
 ### 1. Preprocessing (Otsu Thresholding)
 Raw images are converted to binary format to isolate the ink from the background paper noise.
+
 ![Preprocessing](./results/custom_plot_1_preprocessing.png)
 
 ### 2. Texture Analysis (LBP)
 **Local Binary Patterns (LBP)** are used to analyze the micro-texture of the ink, capturing pressure variations and pen material properties.
+
 ![LBP Texture](./results/custom_plot_2_lbp_texture.png)
 
 ### 3. Shape Analysis (HOG)
 **Histogram of Oriented Gradients (HOG)** captures the macro-geometry, stroke angles, and overall shape flow of the signature.
+
 ![HOG Features](./results/custom_plot_3_hog_features.png)
 
 ---
@@ -46,35 +49,41 @@ Raw images are converted to binary format to isolate the ink from the background
 
 ### Feature Optimization (PCA Variance)
 We used PCA to reduce dimensionality. The plot confirms that **95% of the biometric variance** is retained, optimizing speed without losing accuracy.
+
 ![PCA Variance](./results/custom_plot_4_pca_variance.png)
 
 ### Class Separation (2D Scatter Plot)
 Visualizing the data in 2D space shows distinct clustering. Genuine signatures (Red) and Forgeries (Blue) form separable clusters.
+
 ![2D Scatter Plot](./results/custom_plot_5_pca_2d_scatter.png)
 
 ### Classification Accuracy (Confusion Matrix)
 The Group Model demonstrates a strong ability to distinguish between Genuine and Forged signatures with a low false acceptance rate.
+
 ![Confusion Matrix](./results/custom_plot_6_confusion_matrix.png)
 
 ### Sensitivity Analysis (ROC Curve)
 * **Metric:** Area Under Curve (AUC)
 * **Score:** 0.82 (Individual Model)
 * **Conclusion:** The Individual Model significantly outperforms baseline generic verifiers.
+  
 ![ROC Curve](./results/individual_plot_7_roc_curve.png)
 
 ---
 
 ## 📂 Repository Structure
 
-| File | Description |
+| File / Folder | Description |
 | :--- | :--- |
-| `app.py` | **Frontend:** The entry point for the Streamlit web interface. Handles image upload and visualization. |
-| `main.py` | **Backend:** Contains the core logic for image preprocessing (Otsu thresholding) and feature extraction (HOG + LBP). |
-| `train_individual.py` | **Training:** The script used to train the specialized Tier 3 model. |
-| `models/` | **Model Storage:** Directory containing the pre-trained `.joblib` models. |
-| `results/` | **Analysis:** Folder containing all performance plots and screenshots. |
+| `app.py` | **Main Application:** The Streamlit dashboard interface. |
+| `main.py` | **Core Logic:** Preprocessing and feature extraction (HOG + LBP). |
+| `train_custom.py` | **Training Script:** Used to train the Tier 2 Group Model. |
+| `train_individual.py` | **Training Script:** Used to train the Tier 3 Individual Model. |
+| `requirements.txt` | **Dependencies:** List of required libraries (streamlit, xgboost, etc.). |
+| `models/` | **Model Store:** Contains `.joblib` files for Group/Individual models & scalers. |
+| `results/` | **Outputs:** Contains performance plots, confusion matrices, and app screenshots. |
 
-> **Note:** The Tier 1 (Generic) `pca.joblib` model file exceeds GitHub's storage limits (>100MB) and is not included in this repository. The Tier 2 (Group) and Tier 3 (Individual) models are included for demonstration.
+> **Note:** The Tier 1 (Generic) `pca.joblib` model file is excluded from this repository because it exceeds GitHub's file size limit (>100MB).
 
 ---
 
